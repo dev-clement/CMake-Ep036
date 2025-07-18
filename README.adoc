@@ -1,0 +1,41 @@
+= CMake using the CLI
+Same as we already did, over here, we'll see some tips and tricks to use the CMake CLI.
+
+:toc:
+:sectnums:
+
+== Introduction
+So far, we know that we defined several targets on our projects, for instance, one library and one executable, but that's because we're talking about a small project.
+
+WARNING: Some larger project might have hundreds or even thousands of libraries that are linked together on several executables, that means you have a huge CMake and you don't want to build all the target all the time !
+
+That means that we finally have several targets we want to compile, and let say you are on a team that is working on a specific library, perhaps they don't want to compile and build all the targets but only their libraries.
+
+NOTE: In CMake you're able to build only one specific target / library / executable.
+
+== Compilation
+If you are working on an executable, and you want to compile only that one, be careful about it, because when you are compiling / building this executable, it will also compile the libraries that is linked against.
+
+=== Specify the build target (option 1)
+The standard build command would build all the targets present in the CMakeLists. However you can specify the target you want to compile by using the following command:
+
+```shell
+$ cd build
+$ cmake --build . --target <target-name> 
+```
+
+Then, only the target _<target-name>_ is just an example of a possible target name.
+
+NOTE: All dependent targets will be built beforehand (like said above)
+
+=== Specify the build target (option 2)
+Besides setting the target whithin the cmake build command, you could also run the previously generated solution build (example, a Makefile or a Visual Studio `.sln` file through `msbuild`) the file created upon the generated step.
+
+If you want to build the _<target-name>_, you could do the following:
+
+```shell
+$ cd build
+$ <make/build> <target-name> 
+```
+
+WARNING: This technique is kind of preferred over the other *EVEN THOUGH* both of them are *_equally the same_*
